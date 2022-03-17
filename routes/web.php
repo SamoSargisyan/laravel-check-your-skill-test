@@ -13,7 +13,7 @@ Route::get('', [\App\Http\Controllers\IndexController::class, 'index']);
 //TODO Route Задание 3: По GET урлу /page/contact отобразить view - /resources/views/pages/contact.blade
 // с наименованием роута - contact
 // Одна строка кода
-Route::view('page/contact', 'pages.contact');
+Route::view('page/contact', 'pages.contact')->name('contact');
 
 //TODO Route Задание 4: По GET урлу /users/[id] обратиться к UserController, метод show
 // без Route Model Binding. Только параметр id
@@ -33,7 +33,7 @@ Route::redirect('bad', 'good');
 
 //TODO Route Задание 7: Добавить роут на ресурс контроллер - UserCrudController с урлом - /users_crud
 // Одна строка кода
-Route::resource('users_crud', 'UserCrudController');
+Route::resource('users_crud', \App\Http\Controllers\UserCrudController::class);
 
 
 //TODO Route Задание 8: Организовать группу роутов (Route::group()) объединенных префиксом - dashboard
@@ -46,7 +46,7 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::post('admin/post', [\App\Http\Controllers\Admin\IndexController::class, 'post']);
 });
 //TODO Route Задание 11: Организовать группу роутов (Route::group()) объединенных префиксом - security и мидлваром auth
-Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'security', 'middleware' => 'auth'], function () {
 
     // Задачи внутри группы роутов security
     //TODO Задание 12: Добавить роут GET /admin/auth -> Admin/IndexController -> auth

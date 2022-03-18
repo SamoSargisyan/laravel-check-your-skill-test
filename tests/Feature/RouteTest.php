@@ -127,18 +127,24 @@ class RouteTest extends TestCase
 
         $data = $this->getUserRequestData();
         $response = $this->actingAs($userAuth)->post('/api/v1/users', $data);
-        $response->assertCreated();
+        $response->assertRedirect('/users_crud');
+
+        //$response->assertCreated();
         $this->assertDatabaseHas(User::class, $data);
 
         $user = User::factory()->create();
         $data = $this->getUserRequestData();
         $response = $this->actingAs($userAuth)->put('/api/v1/users/' . $user->id, $data);
-        $response->assertOk();
+        $response->assertRedirect('/users_crud');
+
+//        $response->assertOk();
         $this->assertDatabaseHas(User::class, $data);
 
         $data = $this->getUserRequestData();
         $response = $this->actingAs($userAuth)->delete('/api/v1/users/' . $user->id);
-        $response->assertNoContent();
+        $response->assertRedirect('/users_crud');
+
+//        $response->assertNoContent();
         $this->assertDatabaseMissing(User::class, $data);
     }
 
